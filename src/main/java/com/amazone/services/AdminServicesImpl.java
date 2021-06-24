@@ -1,5 +1,6 @@
 package com.amazone.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.amazone.exception.UserNotFoundException;
@@ -8,14 +9,15 @@ import com.amazone.repository.AdminRepository;
 
 @Service
 public class AdminServicesImpl implements AdminServices {
-
+	@Autowired
+	AdminRepository adminDAO;
 	@Override
 	public boolean validateAdmin(String username, String password) throws UserNotFoundException {
-		return false;
-//		boolean result = adminDAO.existsByAdminIdAndPassword(username, password);
-//		if(!result)
-//			throw new UserNotFoundException("User Not Found");
-//		return result;
+	//	return false;
+		boolean result = adminDAO.existsByAdminIdAndPassword(username, password);
+		if(!result)
+			throw new UserNotFoundException("User Not Found");
+		return result;
 	}
 
 	@Override
